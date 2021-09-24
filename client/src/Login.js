@@ -46,20 +46,21 @@ const Login = (props) => {
   return (
     <Grid container justifyContent="center" alignItems="center" spacing={0} className={authClasses.root}>
       <Hidden mdDown>
-        <Grid container md={12} lg={5} justifyContent="center" className={authClasses.side}>
+        <Grid container item={true} md={12} lg={5} justifyContent="center" className={authClasses.side}>
           <SideView />
         </Grid>
       </Hidden>
-      <Grid container md={12} lg={7} justifyContent="center" className={authClasses.mainContent}>
+      <Grid container item={true} md={12} lg={7} justifyContent="center" className={authClasses.mainContent}>
         <HeaderContent
           contentText="Don’t have an account?"
           buttonText="Create Account"
           onButtonClick={() => history.push('/register')}
           className={authClasses.HeaderContent} />
         <Grid
+          container
           direction="column"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           className={authClasses.formWrapper}>
           <Typography className={authClasses.formHeader} align="left" variant="h4">
             Welcome back!
