@@ -118,13 +118,3 @@ GitHub.sublime-settings
 
 */**/node_modules
 .DS_Store
-.idea/messenger-9832.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-client/package-lock.json
-server/.idea/misc.xml
-server/.idea/modules.xml
-server/.idea/server.iml
-server/.idea/vcs.xml
-server/.idea/workspace.xml
