@@ -1,18 +1,34 @@
 import React from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
-  Box,
+  Hidden,
+  InputAdornment,
   Typography,
   Button,
   FormControl,
   TextField,
 } from "@material-ui/core";
 import { login } from "./store/utils/thunkCreators";
+import SideView from "./components/AuthPages/SideView";
+import HeaderContent from "./components/AuthPages/HeaderContent";
+import { useAuthStyles } from './components/AuthPages/styles';
+
+const useStyles = makeStyles((theme) => ({
+  forgot: {
+    color: theme.palette.primary.main,
+    fontSize: theme.typography.fontSizeSmall,
+    fontWeight: theme.typography.fontWeightBold,
+    cursor: "pointer"
+  }
+}));
 
 const Login = (props) => {
   const history = useHistory();
+  const classes = useStyles();
+  const authClasses = useAuthStyles();
   const { user, login } = props;
 
   const handleLogin = async (event) => {
@@ -28,27 +44,6 @@ const Login = (props) => {
   }
 
   return (
-<<<<<<< HEAD
-    <Grid container justify="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
-=======
     <Grid container justifyContent="center" alignItems="center" spacing={0} className={authClasses.root}>
       <Hidden mdDown>
         <Grid container item={true} md={12} lg={5} justifyContent="center" className={authClasses.side}>
@@ -80,22 +75,30 @@ const Login = (props) => {
               />
             </FormControl>
             <FormControl margin="normal" required className={authClasses.input}>
->>>>>>> develop
               <TextField
                 label="password"
                 aria-label="password"
                 type="password"
                 name="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <span className={classes.forgot}>Forgot?</span>
+                    </InputAdornment>
+                  )
+                }}
               />
             </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
+            <Button type="submit"
+              size="large"
+              variant="contained"
+              color="primary"
+              className={authClasses.submitButton}>
+              Login
               </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
+          </form>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
