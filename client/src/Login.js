@@ -28,6 +28,7 @@ const Login = (props) => {
   }
 
   return (
+<<<<<<< HEAD
     <Grid container justify="center">
       <Box>
         <Grid container item>
@@ -47,6 +48,39 @@ const Login = (props) => {
               </FormControl>
             </Grid>
             <FormControl margin="normal" required>
+=======
+    <Grid container justifyContent="center" alignItems="center" spacing={0} className={authClasses.root}>
+      <Hidden mdDown>
+        <Grid container item={true} md={12} lg={5} justifyContent="center" className={authClasses.side}>
+          <SideView />
+        </Grid>
+      </Hidden>
+      <Grid container item={true} md={12} lg={7} justifyContent="center" className={authClasses.mainContent}>
+        <HeaderContent
+          contentText="Don’t have an account?"
+          buttonText="Create Account"
+          onButtonClick={() => history.push('/register')}
+          className={authClasses.HeaderContent} />
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          className={authClasses.formWrapper}>
+          <Typography className={authClasses.formHeader} align="left" variant="h4">
+            Welcome back!
+            </Typography>
+          <form onSubmit={handleLogin} className={authClasses.inputForm}>
+            <FormControl margin="normal" required className={authClasses.input}>
+              <TextField
+                aria-label="E-mail address"
+                label="E-mail address"
+                name="username"
+                type="text"
+              />
+            </FormControl>
+            <FormControl margin="normal" required className={authClasses.input}>
+>>>>>>> develop
               <TextField
                 label="password"
                 aria-label="password"
