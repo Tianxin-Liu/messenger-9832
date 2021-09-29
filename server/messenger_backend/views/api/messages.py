@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from messenger_backend.models import Conversation, Message
 from online_users import online_users
 from rest_framework.views import APIView
+from django.db.models.query import Prefetch
 
 
 class Messages(APIView):
@@ -61,7 +62,12 @@ class Messages(APIView):
             if not convoId or not senderId:
                 return HttpResponse(status=400)
 
-            conversation = Conversation.objects.filter(id=convoId).first()
+            conversation = Conversation.objects.filter(id=convoId)\
+                .prefetch_related(
+                    Prefetch(
+                        "messages", queryset=Message.objects.order_by("createdAt")
+                    )
+                ).first()
 
             if conversation.user1_id != user.id and conversation.user2_id != user.id:
                 return HttpResponse(status=403)
@@ -71,7 +77,7 @@ class Messages(APIView):
             convo_dict = {
                 "id": conversation.id,
                 "messages": [
-                    message.to_dict(["id", "text", "senderId", "createdAt"])
+                    message.to_dict(["id", "text", "senderId", "createdAt", "read"])
                     for message in conversation.messages.all()
                 ],
             }

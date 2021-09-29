@@ -26,14 +26,13 @@ const Chat = (props) => {
   const { otherUser } = conversation;
 
   const handleClick = async (conversation) => {
-    // await props.setActiveChat(conversation.otherUser.username);
     try {
       await Promise.all([
         props.setActiveChat(conversation.otherUser.username),
         props.markMessagesRead(props.conversation.id, conversation.otherUser.id)
       ]);
     } catch (err) {
-      console.log(err);
+      console.error()
     }
   };
 
