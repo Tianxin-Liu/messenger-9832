@@ -37,7 +37,7 @@ class Conversations(APIView):
                 convo_dict = {
                     "id": convo.id,
                     "messages": [
-                        message.to_dict(["id", "text", "senderId", "createdAt"])
+                        message.to_dict(["id", "text", "senderId", "createdAt", "read"])
                         for message in convo.messages.all()
                     ],
                 }
@@ -58,6 +58,13 @@ class Conversations(APIView):
                 else:
                     convo_dict["otherUser"]["online"] = False
 
+                numberOfUnread = Message.objects.filter(
+                    Q(conversation_id=convo_dict["id"]),
+                    Q(senderId=convo_dict["otherUser"]["id"]),
+                    Q(read=False)
+                ).count()
+                convo_dict["unreadMessageCount"] = numberOfUnread
+
                 conversations_response.append(convo_dict)
             conversations_response.sort(
                 key=lambda convo: convo["messages"][0]["createdAt"],
@@ -68,4 +75,6 @@ class Conversations(APIView):
                 safe=False,
             )
         except Exception as e:
+            print(e)
             return HttpResponse(status=500)
+

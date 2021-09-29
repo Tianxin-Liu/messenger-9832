@@ -26,3 +26,4 @@ class Conversation(utils.CustomModel):
             )
         except Conversation.DoesNotExist:
             return None
+
